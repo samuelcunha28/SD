@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-public class WorkerThread extends Thread{
+public class WorkerThread extends Thread {
 
     public static ArrayList<Socket> Clientes = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class WorkerThread extends Thread{
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-            while(socket.getInputStream() != null){
+            while (socket.getInputStream() != null) {
                 Clientes.add(socket);
                 out.println("Connected");
                 ProcessClient pc = new ProcessClient(socket);

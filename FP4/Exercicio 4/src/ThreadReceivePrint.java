@@ -8,7 +8,7 @@ public class ThreadReceivePrint extends Thread {
     BufferedReader in = null;
 
     public ThreadReceivePrint(Socket socket) {
-        super("ThreadRecievePrint");
+        super("ThreadReceivePrint");
         this.socket = socket;
     }
 

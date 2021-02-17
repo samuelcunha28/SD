@@ -8,7 +8,7 @@ public class Client {
         String hostName = "localhost";
         int portNumber = 2048;
 
-        try{
+        try {
             socket = new Socket(hostName, portNumber);
             ThreadGetSend tgs = new ThreadGetSend(socket);
             tgs.start();

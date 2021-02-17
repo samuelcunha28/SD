@@ -20,11 +20,11 @@ public class ThreadGetSend extends Thread {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromUser;
 
-            while((fromUser = stdIn.readLine()) != null){
+            while ((fromUser = stdIn.readLine()) != null) {
                 out.println(fromUser);
                 System.out.println("Sent by me: " + fromUser);
 
-                if(fromUser.equals("Bye")){
+                if (fromUser.equals("Bye")) {
                     socket.close();
                     break;
                 }

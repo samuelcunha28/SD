@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/*
 public class ProcessClient extends Thread {
 
     public static ArrayList<String> messages = new ArrayList<>();
@@ -55,4 +56,47 @@ public class ProcessClient extends Thread {
         }
     }
 
+}
+ */
+
+public class ProcessClient extends Thread {
+    private Socket socket = null;
+    PrintWriter out = null;
+    BufferedReader in = null;
+
+    public ProcessClient(Socket socket) {
+        super("WorkerThread");
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        super.run();
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+            String message = null;
+            while ((message = in.readLine()) != null) {
+                System.out.println("Mensagem do Cliente: " + message);
+                LocalDateTime now = LocalDateTime.now();
+                String text = "" + dtf.format(now) + " " + socket.getLocalAddress().toString() + ":" + message;
+                //Servidor.sendBroadcast(text, this);
+                ChatServer.messages.add(text);
+                if (message.equals("Bye")) {
+                    break;
+                }
+            }
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(String text) {
+        out.println(text);
+    }
 }
